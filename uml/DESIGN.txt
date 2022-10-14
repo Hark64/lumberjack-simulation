@@ -1,0 +1,177 @@
+DISCLAIMER: There were a lot of methods that I put into one class
+for similar reasons so the rationale for multiple methods may be the same.
+
+getCurrentImage(): PImage
+This should be split and put into Background and Entity because what it does depends on the object type of the input. It has specific behavior for when the input is of type Background and type Entity.
+getAnimationPeriod(): int
+Entity
+nextImage()
+Entity
+executeAction()
+Action, I decided to put this method in the Action class and not the EventScheduler class since it first checks if action.kind is an ACTIVITY or ANIMATION variable.
+executeAnimationAction()
+Action, I decided to put this method in the Action class and not the EventScheduler class since it constantly needs to look at various variables from the inputted action object.
+executeActivityAction()
+Action, I decided to put this method in the Action class since the switch statement first looks at what variable the action object’s entity.kind is.
+
+executeSaplingActivity()
+Entity
+executeTreeActivity()
+Entity
+executeFairyActivity()
+Entity
+executeDudeNotFullActivity()
+Entity
+executeDudeFullActivity()
+entity
+
+scheduleActions()
+entity
+
+transformNotFull(): boolean
+entity
+transformFull(): boolean
+entity
+transformPlant(): boolean
+entity
+transformTree(): boolean
+entity
+transformSapling(): boolean
+entity
+
+moveToFairy(): boolean
+Entity, I decided to put this method in the Entity class since it mainly serves to move the fairy entities.
+moveToNotFull(): boolean
+Entity, I decided to put this method in the Entity class since it mainly serves to move the dude not full entities.
+moveToFull(): boolean
+Entity, I decided to put this method in the Entity class since it mainly serves to move the dude full entities.
+
+nextPositionFairy(): Point
+entity
+nextPositionDude(): Point
+entity
+
+adjacent(): boolean
+Entity, This is only used by the “moveTo” methods, which is in the entity class, so this method should be there to be easily accessed.
+getNumFromRange: int
+Entity, This is only used by transformSapling(), which is in the entity class, so this method should be there to be easily accessed.
+
+scheduleEvent()
+EventScheduler
+unscheduleAllEvents()
+EventScheduler
+removePendingEvent()
+EventScheduler
+updateOnTime()
+EventScheduler
+
+getImageList(): List<PImage>
+ImageStore, I put this method in ImageStore since it just returned the list of PImage for the inputted ImageStore object.
+loadImages()
+VirtualWorld, I put this method into the VirtualWorld class as other methods that dealt with loading, such as LoadWorld(), were in this class.
+processImageLine()
+VirtualWorld, This method should go in the VirtualWorld class as it is only being called by loadImages() and that method has been put into the VirtualWorld class.
+getImages(): List<PImage>
+VirtualWorld, This method should go in the VirtualWorld class as it is only being called by processImageLine(), which itself is only called by loadImages() and that method has been put into the VirtualWorld class.
+setAlpha()
+VirtualWorld, This method should go in the VirtualWorld class as it is only being called by processImageLine(), which itself is only called by loadImages() and that method has been put into the VirtualWorld class.
+
+shift()
+Viewport
+contains(): boolean
+Viewport, I decided to put this method in Viewport simply because attributes from the inputted viewport object are looked at 6 times in this method while attributes from the inputted point object are looked at 4 times.
+
+
+load()
+VirtualWorld, I put this method in the VirtualWorld class as it already contained methods that dealt with loading such as the loadWorld() method.
+processLine(): boolean
+VirtualWorld, I put this method in the VirtualWorld class as it was only called by the load() method, which I put into the VirtualWorld class.
+
+parseBackground(): boolean
+VirtualWorld, I put this method in the VirtualWorld class as it was only called by the proccessLine() method, which I put into the VirtualWorld class.
+parseSapling(): boolean
+VirtualWorld, I put this method in the VirtualWorld class as it was only called by the proccessLine() method, which I put into the VirtualWorld class.
+parseDude(): boolean
+VirtualWorld, I put this method in the VirtualWorld class as it was only called by the proccessLine() method, which I put into the VirtualWorld class.
+parseFairy(): boolean
+VirtualWorld, I put this method in the VirtualWorld class as it was only called by the proccessLine() method, which I put into the VirtualWorld class.
+parseTree(): boolean
+VirtualWorld, I put this method in the VirtualWorld class as it was only called by the proccessLine() method, which I put into the VirtualWorld class.
+parseObstacle(): boolean
+VirtualWorld, I put this method in the VirtualWorld class as it was only called by the proccessLine() method, which I put into the VirtualWorld class.
+parseHouse(): boolean
+VirtualWorld, I put this method in the VirtualWorld class as it was only called by the proccessLine() method, which I put into the VirtualWorld class.
+
+tryAddEntity()
+WorldModel, I decided to put this in WorldModel since it calls isOccupied, which I decided to put in WorldModel.
+withinBounds(): boolean
+WorldModel, I decided to put this in WorldModel as opposed to Point since I noticed it was being used by a lot of methods I could put into the WorldModel class such as isOccupied().
+isOccupied(): boolean
+WorldModel, I put this method in WorldModel since I already put one of its methods, getOccupancyCell(), in WorldModel and withinBounds(), which could easily go in either WorldModel. The fact that so many methods were being used by each other, and the fact that most of them could go into the WorldModel class, is why I chose to put
+
+nearestEntity(): Optional<Entity>
+WorldModel, This method was only being used by the findNearest() method so I put them together in the same class.
+distanceSquared(): int
+WorldModel, This method was only being used by the nearestEntity() method so I put them together in the same class.
+findNearest(): Optional<Entity>
+WorldModel, I felt like this method belonged in the WorldModel class since it looked at each Entity in the inputted WorldModel object’s occupancy attribute.
+addEntity()
+WorldModel, This method uses the setOccupancyCell() method, which I had already put into the WorldModel class, and performs operations on the inputted WorldModel’s entities attribute.
+moveEntity()
+WorldModel, I put this method in worldModel since it was using many methods I had already put into WorldModel such as setOccupancyCell(), withinBounds(), and removeEntityAt().
+removeEntity()
+WorldModel, This method was only being used by the removeEntityAt() method so I put them together in the same class.
+removeEntityAt()
+WorldModel, I put this method in the WorldModel class since it uses the setOccupancyCell() method, a method used to get one of WorldModel’s attributes and removes one of the inputted WorldModel’s entities.
+
+getBackgroundImage(): Optional<PImage>      <<static>>
+WorldModel, I put this method in the WorldModel class since it uses the getBackgroundCell() method, a method used to get one of WorldModel’s attributes.
+setBackground()
+WorldModel,  I put this method in the WorldModel class since it uses the setBackgroundCell() method, a method used to set one of WorldModel’s attributes, and uses withinBounds() which was already in the WorldModel class.
+getOccupant(): Optional<Entity>
+WorldModel, I put this method in the WorldModel class since it uses the getOccupancyCell() method, a method used to get one of WorldModel’s attributes.
+getOccupancyCell(): Entity
+WorldModel, I decided to put this in the WorldModel class since it just returns the value at a specific index for the inputted WorldModel’s occupancy attribute.
+setOccupancyCell()
+WorldModel, I decided to put this in the Worldmodel class since it just sets the value at a specific index for the inputted WorldModel’s occupancy attribute.
+getBackgroundCell(): Background
+WorldModel, I decided to put this in the WorldModel class since it just returns the value at a specific index for the inputted WorldModel’s background attribute.
+setBackgroundCell()
+WorldModel, I decided to put this in the WorldModel class since it just sets the value at a specific index for the inputted WorldModel’s background attribute.
+
+viewportToWorld(): Point
+Viewport
+worldToViewport(): Point
+Viewport
+clamp()
+Worldview, This function is only used by the function, shiftView, which is a function that should be in the Worldview class since it uses the inputted WorldView object a lot. So clamp should be in the worldview class so it can be easily accessed by the shiftview method.
+shiftView()
+Worldview
+drawBackground()
+Worldview
+drawEntities()
+Worldview
+drawViewport()
+Worldview
+
+createAnimationAction(): Action
+VirtualWorld, I put this method into the VirtualWorld class since I noticed the VirtualWorld class already had methods that were creating such as the createDefaultBackground() and createImageColored() methods.
+createActivityAction(): Action
+VirtualWorld, I put this method into the VirtualWorld class since I noticed the VirtualWorld class already had methods that were creating such as the createDefaultBackground() and createImageColored() methods.
+
+createHouse(): Entity
+VirtualWorld, I put this method into the VirtualWorld class since I noticed the VirtualWorld class already had methods that were creating such as the createDefaultBackground() and createImageColored() methods.
+createObstacle(): Entity
+VirtualWorld, I put this method into the VirtualWorld class since I noticed the VirtualWorld class already had methods that were creating such as the createDefaultBackground() and createImageColored() methods.
+createTree(): Entity
+VirtualWorld, I put this method into the VirtualWorld class since I noticed the VirtualWorld class already had methods that were creating such as the createDefaultBackground() and createImageColored() methods.
+createStump(): Entity
+VirtualWorld, I put this method into the VirtualWorld class since I noticed the VirtualWorld class already had methods that were creating such as the createDefaultBackground() and createImageColored() methods.
+createSapling(): Entity
+VirtualWorld, I put this method into the VirtualWorld class since I noticed the VirtualWorld class already had methods that were creating such as the createDefaultBackground() and createImageColored() methods.
+createFairy(): Entity
+VirtualWorld, I put this method into the VirtualWorld class since I noticed the VirtualWorld class already had methods that were creating such as the createDefaultBackground() and createImageColored() methods.
+createDudeNotFull(): Entity
+VirtualWorld, I put this method into the VirtualWorld class since I noticed the VirtualWorld class already had methods that were creating such as the createDefaultBackground() and createImageColored() methods.
+createDudeFull(): Entity
+VirtualWorld, I put this method into the VirtualWorld class since I noticed the VirtualWorld class already had methods that were creating such as the createDefaultBackground() and createImageColored() methods.
